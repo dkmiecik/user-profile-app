@@ -2,8 +2,8 @@ import React, { Dispatch } from 'react';
 
 import { IProfile } from './profile/types/profile.model';
 
-const initialValue: IProfile = localStorage.getItem('profile')
-  ? JSON.parse(localStorage.getItem('profile') ?? '')
+const initialValue: IProfile = sessionStorage.getItem('profile')
+  ? JSON.parse(sessionStorage.getItem('profile') ?? '')
   : {};
 
 const ProfileContext = React.createContext<{
@@ -22,7 +22,7 @@ interface IAction {
 function profileReducer(state = initialValue, action: IAction) {
   switch (action.type) {
     case 'setProfile': {
-      localStorage.setItem('profile', JSON.stringify(action.state));
+      sessionStorage.setItem('profile', JSON.stringify(action.state));
       return action.state;
     }
     default: {
