@@ -34,4 +34,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Launches the test runner in the interactive watch mode.
 
+#### `npm run deploy`
+
+Deploy the app to gh-pages -> [website](http://dkmiecik.github.io/user-profile-ap)
+
+## Comments
+
+### Summary:
+
+- After enter `/` url User is redirected to the `/profile`
+- User is able to upload any image type avatar, only restriction is the size: 2MB
+- I've decided to store User avatar as base64, because app is not connected to any API
+- Another solution for that could be stored an avatar as image file at Client side.
+- I've decided to use Style-components because I wanted to play with it.
+- CSS Modules are also good solution to style components in React.
 
