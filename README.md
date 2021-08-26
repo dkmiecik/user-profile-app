@@ -36,7 +36,7 @@ Launches the test runner in the interactive watch mode.
 
 #### `npm run deploy`
 
-Deploy the app to gh-pages -> [website](http://dkmiecik.github.io/user-profile-ap)
+Deploy the app to gh-pages -> [website](http://dkmiecik.github.io/user-profile-app)
 
 ## Comments
 
