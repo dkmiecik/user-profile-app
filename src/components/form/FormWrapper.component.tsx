@@ -6,7 +6,7 @@ import { IFormInput } from './types/form.model';
 import { FormDefinition } from './FormDefinition.component';
 import { Section } from '../common/Section/Section.component';
 import { mapFormDataToModel } from '../../utils/transformers';
-import { validateEmail, validatePhoneNumber } from '../../utils/validators';
+import { validateEmail, validatePhoneNumber, validateName, validateDate } from '../../utils/validators';
 
 const formDefinition: IFormInput[] = [
   {
@@ -15,6 +15,7 @@ const formDefinition: IFormInput[] = [
     label: 'First Name',
     required: true,
     type: 'text',
+    validator: validateName,
   },
   {
     id: 'lastName',
@@ -22,6 +23,7 @@ const formDefinition: IFormInput[] = [
     label: 'Last Name',
     required: true,
     type: 'text',
+    validator: validateName,
   },
   {
     id: 'email',
@@ -45,6 +47,7 @@ const formDefinition: IFormInput[] = [
     label: 'Birthday date',
     required: true,
     type: 'date',
+    validator: validateDate,
   },
   {
     id: 'about',

@@ -1,4 +1,4 @@
-import { validateEmail, validatePhoneNumber } from './validators';
+import { validateEmail, validatePhoneNumber, validateName, validateDate } from './validators';
 
 describe('validators', () => {
   describe('validatePhoneNumber', () => {
@@ -90,6 +90,38 @@ describe('validators', () => {
       expect(validateEmail('john_@gmail.com')).toBeFalsy();
       expect(validateEmail('john.@gmail.com')).toBeFalsy();
       expect(validateEmail('john-@gmail.com')).toBeFalsy();
+    });
+  });
+
+  describe('validateName', () => {
+    it('should validate name with valid characters but not on the beginning ([-.,])', () => {
+      expect(validateName('.John')).toBeFalsy();
+      expect(validateName(',John')).toBeFalsy();
+      expect(validateName('-John')).toBeFalsy();
+      expect(validateName(',.-John')).toBeFalsy();
+      expect(validateName('-,John')).toBeFalsy();
+      expect(validateName('John-Doe')).toBeTruthy();
+      expect(validateName('John, Doe')).toBeTruthy();
+    });
+
+    it('should not validate name with valid space or digit on the beginning', () => {
+      expect(validateName(' John')).toBeFalsy();
+      expect(validateName('1John')).toBeFalsy();
+      expect(validateName('John ')).toBeFalsy();
+    });
+  });
+
+  describe('validateDate', () => {
+    it('should validate date in correct native format', () => {
+      expect(validateDate('2019-06-20')).toBeTruthy();
+      expect(validateDate('1990-06-20')).toBeTruthy();
+      expect(validateDate('1990/06/20')).toBeTruthy();
+    });
+
+    it('should not validate date in the future', () => {
+      expect(validateDate('2023-06-20')).toBeFalsy();
+      expect(validateDate('2021-12-20')).toBeFalsy();
+      expect(validateDate('2033/06/20')).toBeFalsy();
     });
   });
 });

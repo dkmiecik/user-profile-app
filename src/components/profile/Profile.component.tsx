@@ -5,7 +5,7 @@ import { useProfile } from '../ProfileContext';
 import { IProfile } from './types/profile.model';
 import { transformToLabel } from '../../utils/transformers';
 import user from '../../assets/images/user.png';
-import { Image } from '../common/Image/Image.component';
+import { Image, ImageWrapper } from '../common/Image/Image.component';
 import { Section } from '../common/Section/Section.component';
 import { breakpoints } from '../../assets/styles/variables';
 
@@ -16,7 +16,9 @@ export const Profile: React.FC = () => {
     <Section>
       <h2>Profile</h2>
       <ProfileSection>
-        <Image src={state.avatar && state.avatar.length ? state.avatar : user} alt="Avatar" />
+        <ImageWrapper>
+          <Image src={state.avatar && state.avatar.length ? state.avatar : user} alt="Avatar" />
+        </ImageWrapper>
         <ProfileDetails>
           {Object.keys(state)
             .filter((key) => key !== 'avatar')
@@ -35,7 +37,6 @@ export const Profile: React.FC = () => {
 const ProfileSection = styled.div`
   width: 100%;
   display: flex;
-  margin-top: 20px;
   flex-direction: column;
   margin-top: 20px;
   @media only screen and (min-width: ${breakpoints.md}) {
@@ -44,9 +45,14 @@ const ProfileSection = styled.div`
 `;
 
 const ProfileDetails = styled.div`
+  margin-top: 40px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media only screen and (min-width: ${breakpoints.md}) {
+    margin-top: 0;
+    margin-left: 20px;
+  }
 `;
 
 const ProfileRow = styled.div`

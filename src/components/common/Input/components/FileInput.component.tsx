@@ -5,7 +5,7 @@ import user from '../../../../assets/images/user.png';
 import { IInput } from '../types/input.model';
 
 import { File, FileGroup } from '../InputGroup.component';
-import { Image } from '../../Image/Image.component';
+import { Image, Overlay, ImageWrapper, OverlayText } from '../../Image/Image.component';
 
 type InputProps = IInput;
 
@@ -16,6 +16,10 @@ export const FileInput: React.FC<InputProps> = (props) => {
   const fileInput = React.useRef(null);
   const [isSizeInvalid, setIsSizeInvalid] = React.useState<boolean>(false);
   const [avatar, setAvatar] = React.useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    setAvatar(props.defaultValue as string)
+  }, [props.defaultValue]);
 
   const getBase64 = (file: Blob, callback: (param: string | ArrayBuffer | null) => void) => {
     if (file) {
@@ -56,7 +60,14 @@ export const FileInput: React.FC<InputProps> = (props) => {
 
   return (
     <FileGroup>
-      <Image src={avatar ?? user} alt="User empty avatar" onClick={handleOpenClick} />
+      <ImageWrapper onClick={handleOpenClick}>
+        <Image src={avatar ?? user} alt="User empty avatar" />
+        <Overlay>
+          <OverlayText>
+            Edit Avatar
+          </OverlayText>
+        </Overlay>
+      </ImageWrapper>
       <File
         type="file"
         accept="image/*"
@@ -64,11 +75,11 @@ export const FileInput: React.FC<InputProps> = (props) => {
         onChange={handleChange}
         ref={fileInput}
       />
-      <input
+      <File
         id={props.id}
         name={props.name}
         defaultValue={props.defaultValue as string}
-        type="hidden"
+        type="text"
         ref={textInput}
       />
       {isSizeInvalid && <p>File size is limited to 2MB</p>}

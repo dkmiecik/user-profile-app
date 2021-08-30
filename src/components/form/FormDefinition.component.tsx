@@ -42,6 +42,7 @@ export const FormDefinition: React.FC<FormProps> = (props) => {
             name={avatar.name}
             label={avatar.label}
             required={avatar.required}
+            defaultValue={initialState.avatar}
           />
           <FormFields>
             {definition.map((field) => (

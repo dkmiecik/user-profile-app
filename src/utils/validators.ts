@@ -1,6 +1,10 @@
 const PHONE_REGEX = /^([+]\d{1,3}[ ])?\d{2,3}[- ]?\d{3}[- ]?(\d{2}[- ]\d{2}|\d{3})$/g;
+const EMAIL_START_REGEX = /^[A-Za-z0-9+_.-]+$/;
+const EMAIL_AFTER_AT_REGEX = /^[A-Za-z0-9.-]+$/;
+const EMAIL_DOMAIN_REGEX = /^[A-Za-z]{2,}$/;
 const EMAIL_MIN_LENGTH = 6;
 const EMAIL_MAX_LENGTH = 80;
+const NAME_REGEX = /^[^\s\d-,.!$%^&*()+|~=_{}[\]:";'<>?\/].+[^\s\d!$%^&*()+|~=_{}\[\]:";'<>?\/]$/i;
 
 export const validatePhoneNumber = (value: string): boolean => {
   if (!value) {
@@ -45,11 +49,11 @@ export const isEmailFormatValid = (value: string): boolean => {
     return false;
   }
 
-  if (!isEmailSubPartValid(startingPart, /^[A-Za-z0-9+_.-]+$/, /[+_.-]/)) {
+  if (!isEmailSubPartValid(startingPart, EMAIL_START_REGEX, /[+_.-]/)) {
     return false;
   }
 
-  if (!isEmailSubPartValid(afterAtSignPart, /^[A-Za-z0-9.-]+$/, /[.-]/)) {
+  if (!isEmailSubPartValid(afterAtSignPart, EMAIL_AFTER_AT_REGEX, /[.-]/)) {
     return false;
   }
 
@@ -59,7 +63,7 @@ export const isEmailFormatValid = (value: string): boolean => {
 
   const domainSubPart = afterAtSignPart.substr(afterAtSignPart.lastIndexOf('.') + 1);
 
-  if (!/^[A-Za-z]{2,}$/.test(domainSubPart)) {
+  if (!EMAIL_DOMAIN_REGEX.test(domainSubPart)) {
     return false;
   }
 
@@ -72,4 +76,39 @@ export const validateEmail = (value: string): boolean => {
   }
 
   return isEmailFormatValid(value);
+};
+
+export const validateName = (value: string): boolean => {
+  if (!value) {
+    return false;
+  }
+
+  return NAME_REGEX.test(value);
+}
+
+export const validateDate = (value: Date | string): boolean => {
+  const date = new Date(value);
+
+  if (!Date.parse(date.toString())) {
+    return false
+  }
+
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  if (month + 1 > 12) {
+    return false;
+  }
+
+  const today = new Date();
+  const todayDay = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
+
+  if (year > todayYear || (month > todayMonth && year === todayYear) || (day > todayDay && month === todayMonth && year === todayYear)) {
+    return false;
+  }
+
+  return true;
 };
