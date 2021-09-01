@@ -84,13 +84,13 @@ export const validateName = (value: string): boolean => {
   }
 
   return NAME_REGEX.test(value);
-}
+};
 
 export const validateDate = (value: Date | string): boolean => {
   const date = new Date(value);
 
   if (!Date.parse(date.toString())) {
-    return false
+    return false;
   }
 
   const day = date.getDate();
@@ -106,7 +106,11 @@ export const validateDate = (value: Date | string): boolean => {
   const todayMonth = today.getMonth();
   const todayYear = today.getFullYear();
 
-  if (year > todayYear || (month > todayMonth && year === todayYear) || (day > todayDay && month === todayMonth && year === todayYear)) {
+  if (
+    year > todayYear ||
+    (month > todayMonth && year === todayYear) ||
+    (day > todayDay && month === todayMonth && year === todayYear)
+  ) {
     return false;
   }
 

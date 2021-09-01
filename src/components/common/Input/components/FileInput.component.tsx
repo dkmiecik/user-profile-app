@@ -18,7 +18,7 @@ export const FileInput: React.FC<InputProps> = (props) => {
   const [avatar, setAvatar] = React.useState<string | undefined>(undefined);
 
   React.useEffect(() => {
-    setAvatar(props.defaultValue as string)
+    setAvatar(props.defaultValue as string);
   }, [props.defaultValue]);
 
   const getBase64 = (file: Blob, callback: (param: string | ArrayBuffer | null) => void) => {
@@ -63,9 +63,7 @@ export const FileInput: React.FC<InputProps> = (props) => {
       <ImageWrapper onClick={handleOpenClick}>
         <Image src={avatar ?? user} alt="User empty avatar" />
         <Overlay>
-          <OverlayText>
-            Edit Avatar
-          </OverlayText>
+          <OverlayText>Edit Avatar</OverlayText>
         </Overlay>
       </ImageWrapper>
       <File

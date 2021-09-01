@@ -6,7 +6,12 @@ import { IFormInput } from './types/form.model';
 import { FormDefinition } from './FormDefinition.component';
 import { Section } from '../common/Section/Section.component';
 import { mapFormDataToModel } from '../../utils/transformers';
-import { validateEmail, validatePhoneNumber, validateName, validateDate } from '../../utils/validators';
+import {
+  validateEmail,
+  validatePhoneNumber,
+  validateName,
+  validateDate,
+} from '../../utils/validators';
 
 const formDefinition: IFormInput[] = [
   {
